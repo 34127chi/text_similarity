@@ -1,4 +1,4 @@
-anyq/tools/simnet
+对百度开源的simnet模块梳理
 
 应用介绍: 
 1) 提供语义相似度模型的训练和预测流程;
@@ -38,6 +38,7 @@ TensorFlow版本Simnet提供了BOW，CNN，LSTM等多种网络实现，您可以
 - [数据准备](#3)
 - [模型训练](#4)
 - [模型推断](#5)
+- [模型网络结构](#6)
 
 ## <span id="5">代码结构</span>
 ```
@@ -177,16 +178,18 @@ python tf_simnet.py
 同模型训练部分
 
 
-## <span id="3">模型网络结构</span>
+## <span id="6">模型网络结构</span>
 **Bow网络结构:**
 input1 embedding + input2 embedding => input1 embedding的平均 + input2 embedding的平均 => input1  + input2 的concat=> 全连接层
 
 **KNRM网络结构:**
-流程:input1 embedding + input2 embedding => input1 与 input2 相似度矩阵(归一化后的input) => kenerl池化层(多种尺度的池化层 池化层的泛化)  => 全连接层
+input1 embedding + input2 embedding => input1 与 input2 相似度矩阵(归一化后的input) => kenerl池化层(多种尺度的池化层 池化层的泛化)  => 全连接层
+
 对应的论文:End-to-End Neural Ad-hoc Ranking with Kernel Pooling
 
 **CNN-KNRM网络结构:**
-流程:input1 embedding + input2 embedding => cnn卷积(得到多个尺度的ngram) => input1 与 input2 相似度矩阵(归一化后的input) => kenerl池化层(多种尺度的池化层 池化层的泛化)  => 全连接层
+input1 embedding + input2 embedding => cnn卷积(得到多个尺度的ngram) => input1 与 input2 相似度矩阵(归一化后的input) => kenerl池化层(多种尺度的池化层 池化层的泛化)  => 全连接层
+
 对应的论文:Convolutional Neural Networks for Soft-Matching N-Grams in Ad-hoc Search
 
 **LSTM网络结构:**

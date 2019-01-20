@@ -35,6 +35,7 @@ class Preprocessor(object):
     def initialize(self):
         """
         initialize config and workflow
+        初始化配置和工作流
         """
         self.configs = self.load_configs()
         self.workflows = self.load_workflow()
@@ -42,25 +43,26 @@ class Preprocessor(object):
     def load_configs(self):
         """
         load configs file
+        加载配置文件
         """
         configs = {}
         cf = ConfigParser.ConfigParser()
         cf.read(self.conf_file)
-        configs = dict(cf.items('GLOBAL'))
+        configs = dict(cf.items('GLOBAL'))#global配置信息
         configs['feature'] = []
         subconf = dict()
         sep_stat = configs.get('src_data_seg_sep')
         assert sep_stat != 'None', \
         "please set the delimiter of the input data in config, set parameter src_data_seg_sep"
         subconf['src_data_seg_sep'] = configs.get('src_data_seg_sep').strip('\'')
-        subconf['flow'] = configs['flow']
-        subconf['data'] = configs['src_data']
-        subconf['output_dir'] = configs['output_dir']
-        subconf['platform'] = configs.get('platform', 'paddle')
-        subconf['model_type'] = configs['model_type']
-        subconf['partition_ratio'] = configs.get('partition_ratio', '10:0')
+        subconf['flow'] = configs['flow']#工作流
+        subconf['data'] = configs['src_data']#输入文件夹
+        subconf['output_dir'] = configs['output_dir']#输出文件夹
+        subconf['platform'] = configs.get('platform', 'paddle')#平台选择
+        subconf['model_type'] = configs['model_type']#模型类别
+        subconf['partition_ratio'] = configs.get('partition_ratio', '10:0')#样本分配比例
         for sec in cf.sections():
-            if sec.startswith('FEATURE'):
+            if sec.startswith('FEATURE'):#自定义feature
                 feature_conf = dict(cf.items(sec))
                 feature_conf.update(subconf)
                 configs['feature'].append(feature_conf)
@@ -69,6 +71,7 @@ class Preprocessor(object):
     def load_workflow(self):
         """
         read operation
+        初始化工作流
         """
         workflows = []
         flow = self.configs.get('flow', '')
@@ -82,15 +85,16 @@ class Preprocessor(object):
     def start(self):
         """
         run
+        执行工作流
         """
         for wf in self.workflows:
             print 'start workflow for %s' % wf.feature_name
             wf.start_flow()
 
 if __name__ == '__main__':
-    conf_file = sys.argv[1]
+    conf_file = sys.argv[1]#预处理配置文件
     p = Preprocessor(conf_file)
-    p.initialize()
+    p.initialize()#预处理对象初始化
     p.start()
 
 # vim: set ts=4 sw=4 sts=4 tw=100:

@@ -29,7 +29,7 @@ import layers.paddle_layers as layers
 import util.data_reader as data_reader
 
 _WORK_DIR = os.path.split(os.path.realpath(__file__))[0]
-sys.path.append(os.path.join(_WORK_DIR, '../../../common'))
+sys.path.append(os.path.join(_WORK_DIR, '../../common'))
 import utils
 import log
 

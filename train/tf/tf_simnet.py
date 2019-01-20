@@ -29,7 +29,7 @@ from utils import utility
 from utils import converter
 
 _WORK_DIR = os.path.split(os.path.realpath(__file__))[0]
-sys.path.append(os.path.join(_WORK_DIR, '../../../common'))
+sys.path.append(os.path.join(_WORK_DIR, '../../common'))
 import log 
 
 

@@ -18,6 +18,7 @@
 class OperationOut(object):
     """
     data carrier of ops
+    样本数据类
     """
     def __init__(self):
         self._data_type = None
@@ -32,6 +33,7 @@ class OperationOut(object):
     def set_pointwise_data(self, **kwargs):
         """
         query/title/label
+        存储pointwise数据
         """
         self._sep = kwargs['src_sep']
         self._query = kwargs['query']
